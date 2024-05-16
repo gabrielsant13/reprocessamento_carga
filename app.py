@@ -7,7 +7,7 @@ def valid_insert():
     
     try:
         #conecta ao banco de dados
-        connection = cx_Oracle.connect("CLT135075MULTISOFTWARE", "acpkf21683FYMDI@?", "181.41.174.153:1205/CE2FZW_135076_W")
+        connection = cx_Oracle.connect("user", "password", "host:port/service_name")
         cursor = connection.cursor()
 
         # Consulta no banco de dados Oracle para visualizar
@@ -38,7 +38,7 @@ def consultar_numero():
     
     try:
         #conecta ao banco de dados
-        connection = cx_Oracle.connect("CLT135075MULTISOFTWARE", "acpkf21683FYMDI@?", "181.41.174.153:1205/CE2FZW_135076_W")
+        connection = cx_Oracle.connect("user", "password", "host:port/service_name")
         cursor = connection.cursor()
 
         # Consulta no banco de dados Oracle para visualizar
@@ -76,7 +76,7 @@ def reprocessar_numero():
     if valid == 0:
     
         try:
-            connection = cx_Oracle.connect("CLT135075MULTISOFTWARE", "acpkf21683FYMDI@?", "181.41.174.153:1205/CE2FZW_135076_W")
+            connection = cx_Oracle.connect("user", "password", "host:port/service_name")
             cursor = connection.cursor()
             
             #insert para novo processamento
