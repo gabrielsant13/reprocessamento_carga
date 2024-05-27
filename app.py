@@ -1,6 +1,11 @@
 import cx_Oracle
 from tkinter import messagebox
 import customtkinter as ctk
+import getpass
+
+#cx_Oracle.init_oracle_client(lib_dir=r"C:\app\client\product\12.2.0\client_1\bin") #caminho de diretorio local
+
+username = getpass.getuser()
 
 def valid_insert():
     numero = numero_entry.get()
@@ -80,7 +85,7 @@ def reprocessar_numero():
             cursor = connection.cursor()
             
             #insert para novo processamento
-            insert_query = "INSERT INTO MULTISOFTWARE_INT_ERP (EMPRESA_FAT, EMPRESA_LOG,DATA_ALT,VALOR_OLD,VALOR_NEW,CAMPO_ALT)(SELECT EMPRESA_FAT,EMPRESA_LOG,DATA_ALT,'REENVIO',VALOR_NEW,CAMPO_ALT FROM MULTISOFTWARE_INT_ERP WHERE ID_PK = " + id_pk + ")"
+            insert_query = "INSERT INTO MULTISOFTWARE_INT_ERP (EMPRESA_FAT, EMPRESA_LOG,DATA_ALT,OBS_INT,VALOR_NEW,CAMPO_ALT)(SELECT EMPRESA_FAT,EMPRESA_LOG,SYSDATE,'REENVIO ID "+id_pk+" "+username+"',VALOR_NEW,CAMPO_ALT FROM MULTISOFTWARE_INT_ERP WHERE ID_PK = " + id_pk + ")"
             cursor.execute(insert_query)
             
             connection.commit()
@@ -106,7 +111,7 @@ def reprocessar_numero():
         
 # Criação da janela
 window = ctk.CTk()
-window.title("DCL Envio Manual HML v1.0")
+window.title("DCL Envio Manual PRD v1.01")
 window.geometry("350x300")
 window.resizable(False, False)
 ctk.set_appearance_mode("light") 
@@ -130,5 +135,11 @@ consultar_button.pack(pady=10)
 id_pk = numero_entry.get()
 consultar_button = ctk.CTkButton(window, text="Reprocessar", command=reprocessar_numero)
 consultar_button.pack(pady=5)
+
+user = ctk.CTkLabel(window, text="Usuário: " + username)
+user.pack()
+
+signature = ctk.CTkLabel(window, text="developed by the Projects team")
+signature.pack(ipady=55)
 
 window.mainloop()
