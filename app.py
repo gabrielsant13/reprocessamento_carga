@@ -12,7 +12,7 @@ def valid_insert():
     
     try:
         #conecta ao banco de dados
-        connection = cx_Oracle.connect("user", "password", "host:port/service_name")
+        connection = cx_Oracle.connect("user", "senha", "ip:port/service_name")
         cursor = connection.cursor()
 
         # Consulta no banco de dados Oracle para visualizar
@@ -43,7 +43,7 @@ def consultar_numero():
     
     try:
         #conecta ao banco de dados
-        connection = cx_Oracle.connect("user", "password", "host:port/service_name")
+        connection = cx_Oracle.connect("user", "senha", "ip:port/service_name")
         cursor = connection.cursor()
 
         # Consulta no banco de dados Oracle para visualizar
@@ -81,11 +81,11 @@ def reprocessar_numero():
     if valid == 0:
     
         try:
-            connection = cx_Oracle.connect("user", "password", "host:port/service_name")
+            connection = cx_Oracle.connect("user", "senha", "ip:port/service_name")
             cursor = connection.cursor()
             
             #insert para novo processamento
-            insert_query = "INSERT INTO MULTISOFTWARE_INT_ERP (EMPRESA_FAT, EMPRESA_LOG,DATA_ALT,OBS_INT,VALOR_NEW,CAMPO_ALT)(SELECT EMPRESA_FAT,EMPRESA_LOG,SYSDATE,'REENVIO ID "+id_pk+" "+username+"',VALOR_NEW,CAMPO_ALT FROM MULTISOFTWARE_INT_ERP WHERE ID_PK = " + id_pk + ")"
+            insert_query = "INSERT INTO MULTISOFTWARE_INT_ERP (EMPRESA_FAT, EMPRESA_LOG,DATA_ALT,OBS_INT,VALOR_NEW,CAMPO_ALT,VALOR_OLD)(SELECT EMPRESA_FAT,EMPRESA_LOG,SYSDATE,'REENVIO ID "+id_pk+" "+username+"',VALOR_NEW,CAMPO_ALT,VALOR_OLD FROM MULTISOFTWARE_INT_ERP WHERE ID_PK = " + id_pk + ")"
             cursor.execute(insert_query)
             
             connection.commit()
@@ -111,8 +111,8 @@ def reprocessar_numero():
         
 # Criação da janela
 window = ctk.CTk()
-window.title("DCL Envio Manual PRD v1.01")
-window.geometry("350x300")
+window.title("Envio Manual PRD v1.02")
+window.geometry("380x300")
 window.resizable(False, False)
 ctk.set_appearance_mode("light") 
 
